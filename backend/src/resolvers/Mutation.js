@@ -77,7 +77,7 @@ const Mutations = {
         throw new Error('Invalid password')
       }
       // generate the jwt token
-      const token = jwt.sign({user: user.id}, process.env.APP_SECRET)
+      const token = jwt.sign({userId: user.id}, process.env.APP_SECRET)
       // set the cookie with the token
       ctx.response.cookie('token', token, {httpOnly: true, maxAge: 1000*60*60*24*10}) //10 days
       //return the user
