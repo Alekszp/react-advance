@@ -6,3 +6,4 @@
 /frontend/node_modules
 /backend/variables.env
 /backend/.vscode
+/frontend/.next
