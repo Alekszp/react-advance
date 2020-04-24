@@ -1,1 +1,0 @@
-{"ast":null,"code":"import Home from './index';\nexport default Home;","map":{"version":3,"sources":["C:/Users/Alex/Documents/AdvancedReact02Apr/sick-fits/frontend/components/Items.js"],"names":["Home"],"mappings":"AAAA,OAAOA,IAAP,MAAiB,SAAjB;AAEA,eAAeA,IAAf","sourcesContent":["import Home from './index'\r\n\r\nexport default Home"]},"metadata":{},"sourceType":"module"}
