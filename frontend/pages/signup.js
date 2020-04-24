@@ -1,5 +1,7 @@
 import SignupForm from "../components/Signup";
 import SigninForm from "../components/Signin";
+import ResetPassword from "../components/RequestReset"
+
 import styled from 'styled-components'
 
 const Columns = styled.div`
@@ -13,7 +15,7 @@ const SignUp = props=> (
 
         <SignupForm/>
         <SigninForm/>
-        
+        <ResetPassword/>
     </Columns>
 )
 

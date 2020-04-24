@@ -8,7 +8,7 @@ const CURRENT_USER_QUERY = gql`
             id
             email
             name
-            
+            permissions
         }
     }
     
@@ -20,7 +20,7 @@ const User = props => (
     </Query>
 )
 
-User.PropTypes = {
+User.propTypes = {
     children: PropTypes.func.isRequired
 }
 

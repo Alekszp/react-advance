@@ -32,8 +32,7 @@ class Signup extends Component {
                 {(signUp, {error, loading})=>(
                     <Form method="post" onSubmit={async e=>{
                         e.preventDefault()
-                        const res = await signUp()
-                        console.log(res)
+                        await signUp()
                         this.setState({name: '', email: '', password: ''})
                     }}>
                         <fieldset disabled={loading} aria-busy={loading}>
@@ -44,14 +43,14 @@ class Signup extends Component {
                             Email
                             <input type='email' name='email' placeholder='email' value={this.state.email} onChange={this.saveToState} />
 
-                            <label htmlFor='name'/>
-                            Name
-                            <input type='text' name='name' placeholder='name' value={this.state.name} onChange={this.saveToState} />
-
-                            <label htmlFor='password'/>
-                            Password
-                            <input type='password' name='password' placeholder='password' value={this.state.password} onChange={this.saveToState} />
-
+                            <label htmlFor='name' >
+                                Name
+                                <input type='text' name='name' placeholder='name' value={this.state.name} onChange={this.saveToState} />
+                            </label>
+                            <label htmlFor='password' >
+                                Password
+                                <input type='password' name='password' placeholder='password' value={this.state.password} onChange={this.saveToState} />
+                            </label>
                             <button type='submit'>Sign up</button>
                         </fieldset>
                     </Form>

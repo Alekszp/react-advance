@@ -8,6 +8,7 @@ import Title from './styles/Title'
 import ItemStyles from './styles/ItemStyles'
 import PriceTag from './styles/PriceTag'
 import DeleteItem from './DeleteItem'
+import AddToCart from './AddToCart'
 
 const Icon = styled.span`
     font-size: 22px;
@@ -33,7 +34,7 @@ class Item extends Component {
                 <p>{item.description}</p>
                 <div className='buttonList'>
                     <Link href={{pathname: 'update', query: {id: item.id}}}><a>Edit <Icon>✏</Icon></a></Link>
-                    <button>Add to cart</button>
+                    <AddToCart id={item.id}/>
                     <DeleteItem id={item.id}>Delete this item</DeleteItem>
                 </div>
 
