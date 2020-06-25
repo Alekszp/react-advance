@@ -1,11 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\backend",
     "\\backend\\src",
     "\\backend\\src\\generated",
-    "\\backend\\src\\resolvers"
+    "\\backend\\src\\resolvers",
+    "\\frontend"
   ],
-  "SelectedNode": "\\backend\\src\\schema.graphql",
+  "SelectedNode": "\\frontend\\package.json",
   "PreviewInSolutionExplorer": false
 }

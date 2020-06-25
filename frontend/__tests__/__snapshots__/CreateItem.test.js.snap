@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CreateItem/> renders and matches snapshot 1`] = `
+<form
+  className="Form-sc-1xszr8q-0 krRxky"
+  data-test="form"
+  onSubmit={[Function]}
+>
+  <h2>
+    Sell an item
+  </h2>
+  <fieldset
+    aria-busy={false}
+    disabled={false}
+  >
+    <label
+      htmlFor="file"
+    >
+      Image
+      <input
+        id="file"
+        name="file"
+        onChange={[Function]}
+        placeholder="Upload an image"
+        required={true}
+        type="file"
+      />
+    </label>
+    <label
+      htmlFor="title"
+    >
+      Title
+      <input
+        id="title"
+        name="title"
+        onChange={[Function]}
+        placeholder="title"
+        required={true}
+        type="text"
+        value=""
+      />
+    </label>
+    <label
+      htmlFor="title"
+    >
+      Description
+      <textarea
+        id="description"
+        name="description"
+        onChange={[Function]}
+        placeholder="description"
+        required={true}
+        type="text"
+        value=""
+      />
+    </label>
+    <label
+      htmlFor="title"
+    >
+      Price
+      <input
+        id="price"
+        name="price"
+        onChange={[Function]}
+        placeholder="title"
+        required={true}
+        type="number"
+        value={0}
+      />
+    </label>
+    <button
+      type="submit"
+    >
+      Submit
+    </button>
+    <DisplayError
+      error={Object {}}
+    />
+  </fieldset>
+</form>
+`;

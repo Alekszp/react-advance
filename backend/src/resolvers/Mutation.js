@@ -4,6 +4,7 @@ const {randomBytes} = require('crypto')
 const {promisify} = require('util')
 const {transport, makeANiceEmail} = require('../mail')
 const {hasPermission} = require('../utils')
+const stripe = require("../stripe")
 
 const Mutations = {
 
@@ -39,7 +40,7 @@ const Mutations = {
         return upds
     },
     async deleteItem(parent, args, ctx, info){
-      throw new Error('You aren\'t allowed!!')
+      
       const where = {id: args.id}
     //   find the item
       const item = await ctx.db.query.item({where}, `{id title user { id }}`)
@@ -188,17 +189,13 @@ const Mutations = {
       // 1. Make sure they are signed in
       const { userId } = ctx.request
       // 2. Query the users current cart
-      console.log('userId+++', userId)
-      console.log('args.id+++', args.id)
       const [existingCartItem] = await ctx.db.query.cartItems({
         where: {
           user: { id: userId },
           item: { id: args.id },
         },
       });
-
-      console.log(existingCartItem)
-      return
+      
       // 3. Check if that item is already in their cart abd increment by 1 if it is
       if(existingCartItem) {
         console.log('This item is already in their cart')
@@ -214,13 +211,89 @@ const Mutations = {
             connect: {id: userId}
           },
           item: {
-            connect: {
-              connect: { id: args.id }
-            }
+            connect: { id: args.id }
           }
         }
       }, info)
 
+    },
+    async removeFromCart(parent, {id}, ctx, info){
+      const {userId} = ctx.request
+      const cartItem = await ctx.db.query.cartItem({
+        where: {
+          id: id
+        }
+      }, `{id user { id }}`)
+      if(!cartItem) throw new Error('No cart item found')
+      if(cartItem.user.id !== userId) throw new Error('Not your item! Cheating huhhhh!')
+      return ctx.db.mutation.deleteCartItem({
+        where: { 
+          id: id
+        }
+      }, info)
+    },
+    async createOrder(parent, {token}, ctx, info){
+      // 1. Query the current user and make sure there are signed in
+      const {userId} = ctx.request
+      console.log('userId++++', userId )
+      if(!userId) throw new Error('You must be signed in to complete this order')
+      const user = await ctx.db.query.user({where: {id: userId}}, `{
+        id
+        email
+        name
+        cart { 
+          id
+          quantity
+          item {
+            id
+            title
+            price
+            description
+            image
+            largeImage
+          } 
+        }
+      }`)
+      console.log(user)
+      // 2. recalculate the total of the price
+      const amount = await user.cart.reduce((tally, cartItem)=>{
+        return tally + cartItem.item.price * cartItem.quantity
+      }, 0)
+      console.log(amount)
+      // 3. create the stripe charge (turn token into money)
+      const charge = await stripe.charges.create({
+        amount: amount,
+        currency: "USD",
+        source: token
+      })
+      console.log(charge)
+      // 4. Convert the CartItems to OrderItems
+      const orderItems = user.cart.map((cartItem)=>{
+        const orderItem = {
+          ...cartItem.item,
+          quantity: cartItem.quantity,
+          user: {connect: {id: user.id}},
+        }
+        delete orderItem.id
+        return orderItem
+      })
+      // 5. create the Order
+      const order = await ctx.db.mutation.createOrder({
+        data: {
+          total: charge.amount,
+          charge: charge.id,
+          items: {create: orderItems},
+          user: {connect: {id: userId}}
+        }
+      })
+      // 6. cleanup - clear the users cart, delete CartItems
+      const cartItemIds = user.cart.map(item=> item.id)
+      await ctx.db.mutation.deleteManyCartItems({
+        where: {id_in: cartItemIds}
+      })
+      // 7. return the order to the client
+
+      return order
     }
 
 };

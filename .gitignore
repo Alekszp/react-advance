@@ -7,3 +7,5 @@
 /backend/variables.env
 /backend/.vscode
 /frontend/.next
+/frontend/.history
+/backend/.history

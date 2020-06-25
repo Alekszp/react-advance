@@ -24,18 +24,18 @@ const Pagination = props => (
                     if(loading) return <p>Loading...</p>
                     const count = data.itemsConnection.aggregate.count
                     const pages = Math.ceil(count / perPage)
-                    return (<PaginationStyle>
-                            <Head>
-                                <title>Sick Fits! - Page {props.page} of {pages}</title>
-                            </Head>
-                            <Link prefetch href={{pathname: 'shop', query: { page: props.page - 1}}}>
-                                <a className='prev' aria-disabled={props.page <= 1}>⬅ Prev</a>
-                            </Link>
-                            <p>Page {props.page} of {pages} </p>
-                            <p>{count} Items total </p>
-                            <Link prefetch href={{pathname: 'shop', query: { page: props.page + 1}}}>
-                                <a className='prev' aria-disabled={props.page >= pages}>Next ➡</a>
-                            </Link>
+                    return (<PaginationStyle data-test="pagination">
+                                <Head>
+                                    <title>Sick Fits! - Page {props.page} of {pages}</title>
+                                </Head>
+                                <Link href={{pathname: 'shop', query: { page: props.page - 1}}}>
+                                    <a className='prev' aria-disabled={props.page <= 1}>⬅ Prev</a>
+                                </Link>
+                                <p>Page {props.page} of <span className='totalPages'>{pages}</span> </p>
+                                <p>{count} Items total </p>
+                                <Link href={{pathname: 'shop', query: { page: props.page + 1}}}>
+                                    <a className='next' aria-disabled={props.page >= pages}>Next ➡</a>
+                                </Link>
                          </PaginationStyle>)
                 }}
             </Query>
@@ -45,3 +45,4 @@ const Pagination = props => (
     
 
 export default Pagination
+export {PAGINATION_QUERY}
