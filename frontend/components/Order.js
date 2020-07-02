@@ -44,7 +44,7 @@ class Order extends Component {
                     const {order} = data
                     console.log(order)
                    return (
-                        <OrderStyles>
+                        <OrderStyles data-test='order'>
                             <Head>
                                 <title>Order number: {id}</title>
                             </Head>  
@@ -94,3 +94,4 @@ class Order extends Component {
 }
 
 export default Order;
+export {ORDER_QUERY}

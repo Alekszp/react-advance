@@ -31,5 +31,6 @@ describe('<Cart />', ()=>{
         await wait()
         wrapper.update()
         expect(toJSON(wrapper.find('header'))).toMatchSnapshot()
+        expect(wrapper.find('CartItem')).toHaveLength(0)
     })
 })

@@ -1,6 +1,7 @@
-endpoint: ${env:PRISMA_ENDPOINT}
+#endpoint: ${env:PRISMA_ENDPOINT}
+endpoint: https://react-production-0cf4197f00.herokuapp.com/react-dev-2-prod/prod
 datamodel: datamodel.prisma
-
+secret: ${env:PRISMA_SECRET}
 hooks: 
     post-deploy: 
         - graphql get-schema -p prisma

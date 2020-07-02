@@ -7,8 +7,8 @@ import toJSON from 'enzyme-to-json'
 import {fakeUser} from '../lib/testUtils'
 import { ApolloConsumer } from 'react-apollo'
 
-function type(wrapper, name, val){
-    wrapper.find(`input[name="${name}"]`).simulate('change', {target: {name, val}})
+function type(wrapper, name, value){
+    wrapper.find(`input[name="${name}"]`).simulate('change', {target: {name, value}})
 }
 
 const me = fakeUser()
@@ -76,6 +76,6 @@ describe('<Signup />', ()=>{
         await wait()
         // query the user out of the apollo client
         const user = await apolloClient.query({query: CURRENT_USER_QUERY})
-        console.log(user)
+        expect(user.data.me).toMatchObject(me)
     })
 })

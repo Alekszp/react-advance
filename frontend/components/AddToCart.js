@@ -16,13 +16,13 @@ class AddToCart extends React.Component {
     render(){
         const {id} = this.props
         return (
-        <Mutation mutation={ADD_TO_CART_MUTATION} variables={{id: id}} refetchQueries={[{query: CURRENT_USER_QUERY}]}>
-            {(addToCart, {loading})=>(
-            <button onClick={addToCart} disabled={loading}>Add{loading && 'ing'} to Cart</button>
-        )}</Mutation>
-            
+            <Mutation mutation={ADD_TO_CART_MUTATION} variables={{id: id}} refetchQueries={[{query: CURRENT_USER_QUERY}]}>
+                {(addToCart, {loading})=>(
+                <button onClick={addToCart} disabled={loading}>Add{loading && 'ing'} to Cart</button>
+            )}</Mutation>
         )
     }
 }
 
+export {ADD_TO_CART_MUTATION}
 export default AddToCart
